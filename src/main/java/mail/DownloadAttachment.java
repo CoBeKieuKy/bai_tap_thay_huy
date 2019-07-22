@@ -14,8 +14,7 @@ import java.util.regex.Pattern;
 
 public class DownloadAttachment {
     private static Logger logger = Logger.getLogger(DownloadAttachment.class.getSimpleName());
-    private static final Set<String> wrongSubjectAddresses = new HashSet<>();
-    private static final Set<String> zipFilePaths = new HashSet<>();
+    
     private static final String SAVE_DIR =  "D:/save_location/";
     public static void getAttachment(String host, String username, String password) {
         try {
@@ -58,16 +57,10 @@ public class DownloadAttachment {
                                 String outputFilePath = SAVE_DIR + address + "-" + fileName;
                                 bodyPart.saveFile(outputFilePath);
                                 UnzipFile.unzipFileHandler(outputFilePath,address);
-                                addZipFilePath(outputFilePath);
-
-                            } else {
-                            	addWrongSubjectAddress(address);
-                            }
+                            } 
                         }
                     }                   
-                } else{
-                    addWrongSubjectAddress(address);
-                }
+                } 
             }
             //close the store and folder objects
             emailFolder.close(false);
@@ -95,41 +88,6 @@ public class DownloadAttachment {
         // connect
         store.connect(host, username, password);
         return store;
-    }
-    
-    private static void addWrongSubjectAddress(String address) {
-        synchronized (wrongSubjectAddresses) {
-            wrongSubjectAddresses.add(address);
-        }
-    }    
-    public static Set<String> getAllWrongSubjectAddresses() {
-        synchronized (wrongSubjectAddresses) {
-            if (wrongSubjectAddresses.isEmpty())
-                return Collections.emptySet();
-            else {
-                HashSet<String> wrongAddresses = new HashSet<>(wrongSubjectAddresses);
-                wrongSubjectAddresses.clear();
-                return wrongAddresses;
-            }
-        }
-    }
-
-    private static void addZipFilePath(String filePath) {
-        synchronized (zipFilePaths) {
-            zipFilePaths.add(filePath);
-        }
-    }
-
-    public static Set<String> getAllZipFilePaths() {
-        synchronized (zipFilePaths) {
-            if (zipFilePaths.isEmpty())
-                return Collections.emptySet();
-            else {
-                HashSet<String> paths = new HashSet<>(zipFilePaths);
-                zipFilePaths.clear();
-                return paths;
-            }
-        }
     }
 
     public static void main(String[] args) {
