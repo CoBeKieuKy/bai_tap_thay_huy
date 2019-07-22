@@ -26,8 +26,17 @@ public class UnzipFile {
 		return destFile;
 	}
 	
-	public static void unzipFileHandler(String fileZip) {
-		File destDir = new File(UNZIP_DIR);
+	public static void unzipFileHandler(String fileZip, String address) {
+	
+		File destDir = new File(UNZIP_DIR+"/"+address);
+        if (!destDir.exists()) {
+            if (destDir.mkdir()) {
+                System.out.println("Directory is created!");
+            } else {
+                System.out.println("Failed to create directory!");
+            }
+        }
+		
         byte[] buffer = new byte[1024];		
 		
 		try {

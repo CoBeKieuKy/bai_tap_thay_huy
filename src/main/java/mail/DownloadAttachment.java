@@ -57,7 +57,7 @@ public class DownloadAttachment {
                             	System.out.println();
                                 String outputFilePath = SAVE_DIR + address + "-" + fileName;
                                 bodyPart.saveFile(outputFilePath);
-                                UnzipFile.unzipFileHandler(outputFilePath);
+                                UnzipFile.unzipFileHandler(outputFilePath,address);
                                 addZipFilePath(outputFilePath);
 
                             } else {
