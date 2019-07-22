@@ -47,10 +47,10 @@ public class SendAnswer {
             message.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
             // Set Subject: header field
-            message.setSubject("From Adviser with LOVE <3");
+            message.setSubject("From Admin: GRADE");
 
             // Now set the actual message
-            message.setText("Nothing gonna change my love for you !");
+            message.setText("Your grade is: ");
 
             // Send message
             Transport.send(message);
